@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System</title>
+    <link rel="icon" href="https://img.icons8.com/color/48/books.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+        .content {
+            flex: 1;
+        }
+        .book-card {
+            background-color: #7a7a7a; /* Lighter shade of grey */
+            border: none;
+            height: 100%; /* Set the height to 100% */
+            display: flex;
+            flex-direction: column;
+        }
+        .card-body {
+            flex: 1; /* Allow the card body to grow or shrink */
+            padding: 1rem; /* Add padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .card-img-top {
+            object-fit: cover; /* Maintain aspect ratio */
+            height: 300px; /* Set a fixed height for the image */
+        }
+        footer {
+            text-align: center;
+            color: #f8f9fa;
+            background-color: #343a40;
+
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Book Recommendation System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/recommend">Recommendations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/kanakOS01/book-recommender-system" target="_blank">
+                            <img src="https://img.icons8.com/dusk/64/github.png" alt="GitHub" style="height: 24px;">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container mt-4 content">
+        <div class="mb-4 container row">
+            <h1>Get a Recommendation</h1>
+        </div>
+     
+        <div class="row mb-4">
+            <form class="col-md-6 form-container" method="post" action="/get_recommendations">
+                <input type="text" class="form-control" id="user-input" name="user-input" placeholder="Search for a book">
+                <input type="submit" class="btn btn-primary mt-3" value="Recommend">
+            </form>
+        </div>
+
+        <div class="row">
+            {% if data %}
+                {% for book in data %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card book-card">
+                            <img src="{{ book[2] }}" class="card-img-top" alt="Book Cover">
+                            <div class="card-body">
+                                <h5 class="card-title" style="color: #151313;">{{ book[0] }}</h5> 
+                                <p class="card-text" style="color: #151313; margin-bottom: 0;">{{ book[1] }}</p> 
+                            </div>                                   
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        <p>Icons by <a href="https://icons8.com">Icons8</a></p>
+        <p>There is no search function as it takes a lot of browser resources. You can find a small set of books <a href="/books_archive" traget="_blank">here</a> on which you can use recommendation.</p>
+    </footer>
+    <!-- <script src="{{ url_for('static', filename='recommend.js') }}"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
